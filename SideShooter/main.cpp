@@ -149,6 +149,11 @@ int main(void)
 
 			al_flip_display();
 			al_clear_to_color(al_map_rgb(0,0,0));
+
+			if (myPlayer.getLives() == 0) {
+				done = true;
+				al_rest(5);
+			}
 		}
 	}
 
