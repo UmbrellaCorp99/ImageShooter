@@ -1,15 +1,23 @@
+//Alexander Young
+//Lab 8
+
 #include <allegro5\allegro.h>
 #include <allegro5\allegro_primitives.h>
 #include <allegro5\allegro_image.h>
 #include "player.h"
 
-
+//This is a deconstructor for the player class. It destroys all the bitmaps stored ib the images array and the image bitmap
+//Takes no parameters
+//No return
 player::~player()
 {
 	for (int i = 0; i < 6; i++) {
 		al_destroy_bitmap(images[i]);
 	}
+	al_destroy_bitmap(image);
 }
+
+//This function 
 player::player(int HEIGHT)
 {	lives = 5;
 	x = 20;
