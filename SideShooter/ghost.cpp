@@ -1,8 +1,14 @@
+//Alexander Young
+//Lab 8
+
 #include <allegro5\allegro.h>
 #include <allegro5\allegro_primitives.h>
 #include <allegro5\allegro_image.h>
 #include "ghost.h"
 
+//This is a constructor for the ghost class
+//Takes no parameters
+//No return
 ghost::ghost()
 {
 	image = al_load_bitmap("ghost.png");
@@ -13,10 +19,18 @@ ghost::ghost()
 
 
 }
+
+//This is a deconstructor for the ghost class
+//Takes no parameters
+//No return
 ghost::~ghost()
 {
 	al_destroy_bitmap(image);
 }
+
+//This function draws a ghost with a random tint effect
+//Takes no parameters
+//No return
 void ghost::Drawghost()
 {
 	if(live)
@@ -28,6 +42,10 @@ void ghost::Drawghost()
 		al_draw_tinted_bitmap(image , al_map_rgba_f(r,g,b, 1), x,y, 0);
 	}
 }
+
+//This function spawns a ghost to a random location
+//Takes integers representing the display height and width as parameters
+//No return
 void ghost::Startghost(int WIDTH, int HEIGHT )
 {
 	if(!live)
@@ -41,6 +59,10 @@ void ghost::Startghost(int WIDTH, int HEIGHT )
 		}
 	}
 }
+
+//This function moves the ghost to the left
+//Takes no parameters
+//No return
 void ghost::Updateghost()
 {
 
@@ -50,6 +72,10 @@ void ghost::Updateghost()
 	}
 
 }
+
+//This function detects if the ghost touches a player bitmap and removes it if it does, also removes a life from the player
+//Takes a player object as a parameter
+//No return
 void ghost::Collideghost(player &Player)
 {
 	if(live)

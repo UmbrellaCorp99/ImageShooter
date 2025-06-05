@@ -1,3 +1,6 @@
+//Alexander Young
+//Lab 8
+
 #include <allegro5\allegro.h>
 #include <allegro5\allegro_primitives.h>
 #include <allegro5\allegro_image.h>
@@ -9,7 +12,7 @@
 
 int main(void)
 {
-
+	//Variables for use
 	const int WIDTH = 800;
 	const int HEIGHT = 400;
 	const int NUM_ArrowS = 5;
@@ -89,6 +92,7 @@ int main(void)
 				Arrows[i].CollideArrow(ghosts, NUM_ghostS, myPlayer);
 			for(int i=0;i<NUM_ghostS;i++)
 				ghosts[i].Collideghost(myPlayer);
+			//Draws the player's score and lives to the screen
 			al_draw_textf(font, al_map_rgb(255, 255, 0), WIDTH/4, (HEIGHT/10)*9, ALLEGRO_ALIGN_LEFT, "Lives: %i", myPlayer.getLives());
 			al_draw_textf(font, al_map_rgb(255, 255, 0), WIDTH / 2, (HEIGHT / 10) * 9, ALLEGRO_ALIGN_LEFT, "Score: %i", myPlayer.getScore());
 		}
@@ -96,6 +100,7 @@ int main(void)
 		{
 			done = true;
 		}
+		//records keyboard keystrokes for input
 		else if(ev.type == ALLEGRO_EVENT_KEY_DOWN)
 		{
 			switch(ev.keyboard.keycode)
@@ -122,6 +127,7 @@ int main(void)
 				break;
 			}
 		}
+		//resets a corresponding key's keystroke
 		else if(ev.type == ALLEGRO_EVENT_KEY_UP)
 		{
 			switch(ev.keyboard.keycode)

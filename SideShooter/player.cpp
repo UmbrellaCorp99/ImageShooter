@@ -17,7 +17,9 @@ player::~player()
 	al_destroy_bitmap(image);
 }
 
-//This function 
+//This is the constructor for the player class. It stores five bitmaps loading images into the images array and sets the image bitmap equal to the images index that matches the lives variable.
+//Takes an integer representing the display height as a parameter
+//No return
 player::player(int HEIGHT)
 {	lives = 5;
 	x = 20;
@@ -40,32 +42,56 @@ player::player(int HEIGHT)
 	boundx = al_get_bitmap_width(image);
 	boundy = al_get_bitmap_height(image);
 }
+
+//This function draws a specified bitmap
+//Takes no parameters
+//No return
 void player::DrawPlayer()
 {
 	al_draw_bitmap(image, x, y, 0);
 }
+
+//This function decrememnts the lives variable and changes the images index from which the new image bitmap will pull it's image from
+//No parameters
+//No return
 void player::removeLife() { 
 	lives--;
 	image = images[lives];
 }
+
+//This function moves the player up
+//Takes no parameters
+//No return
 void player::MoveUp()
 {
 	y -= speed;
 	if(y < 0)
 		y = 0;
 }
+
+//This function moves the player down
+//Takes no parameters
+//No return
 void player::MoveDown(int HEIGHT)
 {
 	y += speed;
 	if((y + getBoundX()) > HEIGHT)
 		y = (HEIGHT - getBoundX());
 }
+
+//This function moves the player left
+//Takes no parameters
+//No return
 void player::MoveLeft()
 {
 	x -= speed;
 	if(x < 0)
 		x = 0;
 }
+
+//This function moves the player right
+//Takes no parameters
+//No return
 void player::MoveRight()
 {
 	x += speed;
