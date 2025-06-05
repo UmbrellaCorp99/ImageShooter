@@ -1,6 +1,8 @@
 #include <allegro5\allegro.h>
 #include <allegro5\allegro_primitives.h>
 #include <allegro5\allegro_image.h>
+#include <allegro5/allegro_font.h>
+#include <allegro5/allegro_ttf.h>
 #include "player.h"
 #include "ghost.h"
 #include "Arrow.h"
@@ -36,8 +38,14 @@ int main(void)
 	if(!display)										//test display object
 		return -1;
 
+	
+
 	al_install_keyboard();
 	al_init_image_addon();
+	al_init_font_addon();
+	al_init_ttf_addon();
+
+	ALLEGRO_FONT* font = al_load_font("Movistar Text Regular.ttf", 24, 0);
 
 	//object variables
 	player myPlayer(HEIGHT);
@@ -78,9 +86,11 @@ int main(void)
 			for(int i=0;i<NUM_ghostS;i++)
 				ghosts[i].Updateghost();
 			for(int i=0;i<NUM_ArrowS;i++)
-				Arrows[i].CollideArrow(ghosts, NUM_ghostS);
+				Arrows[i].CollideArrow(ghosts, NUM_ghostS, myPlayer);
 			for(int i=0;i<NUM_ghostS;i++)
 				ghosts[i].Collideghost(myPlayer);
+			al_draw_textf(font, al_map_rgb(255, 255, 0), WIDTH/4, (HEIGHT/10)*9, ALLEGRO_ALIGN_LEFT, "Lives: %i", myPlayer.getLives());
+			al_draw_textf(font, al_map_rgb(255, 255, 0), WIDTH / 2, (HEIGHT / 10) * 9, ALLEGRO_ALIGN_LEFT, "Score: %i", myPlayer.getScore());
 		}
 		else if(ev.type == ALLEGRO_EVENT_DISPLAY_CLOSE)
 		{
@@ -140,13 +150,11 @@ int main(void)
 		if(redraw && al_is_event_queue_empty(event_queue))
 		{
 			redraw = false; 
-
 			myPlayer.DrawPlayer();
 			for(int i=0;i<NUM_ArrowS;i++)
 				Arrows[i].DrawArrow();
 			for(int i=0;i<NUM_ghostS;i++)
 				ghosts[i].Drawghost();
-
 			al_flip_display();
 			al_clear_to_color(al_map_rgb(0,0,0));
 
@@ -159,6 +167,7 @@ int main(void)
 
 	al_destroy_event_queue(event_queue);
 	al_destroy_timer(timer);
+	al_destroy_font(font);
 	al_destroy_display(display);						//destroy our display object
 	system("Pause");
 	return 0;

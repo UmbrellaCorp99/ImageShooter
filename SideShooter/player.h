@@ -14,7 +14,9 @@ public:
 	int getBoundY(){return boundy;}
 	int getX(){return x;}
 	int getY(){return y;}
+	int getScore() { return score; }
 	void removeLife();
+	void updateScore(int i) { score += i; }
 	int getLives(){return lives;}
 private:
 	int x;
